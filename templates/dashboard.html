@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 class="mb-4">📊 Your Study Dashboard</h2>
+
+{% if tasks %}
+<table class="table table-bordered table-hover shadow">
+    <thead class="table-dark">
+        <tr>
+            <th>Title</th>
+            <th>Subject</th>
+            <th>Deadline</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for task in tasks %}
+        <tr>
+            <td>{{ task.title }}</td>
+            <td>{{ task.subject.name }}</td>
+            <td>{{ task.deadline }}</td>
+
+            <td>
+                {% if task.status == "Completed" %}
+                    <span class="badge bg-success">Completed</span>
+                {% else %}
+                    <span class="badge bg-warning">Pending</span>
+                {% endif %}
+            </td>
+
+            <td>
+                <a href="/complete_task/{{ task.id }}" class="btn btn-sm btn-success">✔</a>
+                <a href="/edit_task/{{ task.id }}" class="btn btn-sm btn-primary">Edit</a>
+                <a href="/delete_task/{{ task.id }}" class="btn btn-sm btn-danger">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% else %}
+<p>No tasks yet. Add one!</p>
+{% endif %}
+
+{% endblock %}

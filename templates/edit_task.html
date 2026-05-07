@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+
+        <div class="card shadow p-4">
+            <h3 class="mb-3">✏️ Edit Task</h3>
+
+            <form method="POST">
+
+                <input type="text" name="title" value="{{ task.title }}" class="form-control mb-3" required>
+
+                <textarea name="description" class="form-control mb-3">{{ task.description }}</textarea>
+
+                <input type="date" name="deadline" value="{{ task.deadline }}" class="form-control mb-3" required>
+
+                <select name="subject_id" class="form-control mb-3">
+                    {% for subject in subjects %}
+                        <option value="{{ subject.id }}"
+                        {% if subject.id == task.subject_id %} selected {% endif %}>
+                        {{ subject.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+
+                <button class="btn btn-success w-100">Update Task</button>
+
+            </form>
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
